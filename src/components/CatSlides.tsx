@@ -1,28 +1,8 @@
-import { useEffect, useState } from "react";
-import apiClient from "@/services/api-client";
+import useCats from "@/hooks/useCats";
 import { Box, HStack, Image, Text } from "@chakra-ui/react";
 
-interface CatImage {
-  id: string;
-  url: string;
-  width: number;
-  height: number;
-  breeds?: Array<{ id: string; name: string }>;
-}
-
 const CatSlides = () => {
-  const [cats, setCats] = useState<CatImage[]>([]);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    apiClient
-      .get<CatImage[]>("/images/search?limit=10")
-      .then((res) => setCats(res.data))
-      .catch((err) => {
-        console.error(err);
-        setError("Failed to fetch the image");
-      });
-  }, []);
+  const { cats, error } = useCats();
 
   if (error) return <Text color="red.500">{error}</Text>;
   if (!cats.length) return <Text>Loading...</Text>;
