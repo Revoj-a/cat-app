@@ -1,26 +1,33 @@
-import useCats from "@/hooks/useCats";
-import { Box, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, HStack, Image, Spinner, Text } from "@chakra-ui/react";
 
-const CatSlides = () => {
-  const { cats, error } = useCats();
+export interface CatImage {
+  id: string;
+  url: string;
+}
 
+interface Props {
+  cats: CatImage[];
+  error: string;
+  loading: boolean;
+  currentIndex: number;
+}
+
+const CatSlides = ({ cats, error, loading, currentIndex }: Props) => {
+  if (loading) return <Spinner />;
   if (error) return <Text color="red.500">{error}</Text>;
   if (!cats.length) return <Text>Loading...</Text>;
 
+  const currentCat = cats[currentIndex];
+
   return (
     <HStack>
-      {cats.map((cat) => (
-        <Box key={cat.id}>
-          <Image
-            src={cat.url}
-            alt={`Cat ${cat.id}`}
-            boxSize="300px"
-            objectFit="cover"
-            borderRadius="md"
-            mb={2}
-          ></Image>
-        </Box>
-      ))}
+      <Box />
+      <Image
+        src={currentCat.url}
+        alt={`Cat ${currentCat.id}`}
+        boxSize="350px"
+        borderRadius="md"
+      />
     </HStack>
   );
 };

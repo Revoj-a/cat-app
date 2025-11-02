@@ -2,9 +2,12 @@ import { Box, Grid } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import CatSlides from "./components/CatSlides";
 import { useState } from "react";
+import IconBar from "./components/IconBar";
+import useCats from "./hooks/useCats";
 
 function App() {
   const [showCats, setShowCats] = useState(false);
+  const { cats, error, currentIndex, loading, handleNextImage } = useCats();
   return (
     <Box bg="white" minH="100vh">
       <Grid
@@ -34,16 +37,25 @@ function App() {
           alignItems="center"
           justifyContent="center"
         >
-          {showCats && <CatSlides />}
+          {showCats && (
+            <CatSlides
+              cats={cats}
+              error={error}
+              loading={loading}
+              currentIndex={currentIndex}
+            />
+          )}
         </Box>
         <Box
           gridArea="bottom"
-          bg="gray"
+          bg="white"
           display="flex"
           color="black"
           alignItems="center"
           justifyContent="center"
-        ></Box>
+        >
+          <IconBar onHeartClick={handleNextImage} />
+        </Box>
       </Grid>
     </Box>
   );
