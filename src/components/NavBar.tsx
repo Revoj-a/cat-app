@@ -3,7 +3,11 @@ import voteIcon from "../assets/vote.svg";
 import magnifyingIcon from "../assets/magnifying.png";
 import heartIcon from "../assets/heart.png";
 
-const NavBar = () => {
+interface Props {
+  onVoteClick: () => void;
+}
+
+const NavBar = ({ onVoteClick }: Props) => {
   return (
     <HStack justify="center">
       <Box
@@ -14,7 +18,9 @@ const NavBar = () => {
         alignItems="center"
         bg="transparent"
         border="none"
+        cursor="pointer"
         outline="none"
+        onClick={onVoteClick}
         overflow="hidden"
         _hover={{ bg: "transparent", transform: "scale(1.1)" }}
         _active={{ transform: "sacle(0.95)" }}

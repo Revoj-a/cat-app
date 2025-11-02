@@ -4,9 +4,6 @@ import { useEffect, useState } from "react";
 interface CatImage {
   id: string;
   url: string;
-  width: number;
-  height: number;
-  breeds?: Array<{ id: string; name: string }>;
 }
 
 const useCats = () => {
@@ -16,7 +13,7 @@ const useCats = () => {
   useEffect(() => {
     const controller = new AbortController();
     apiClient
-      .get<CatImage[]>("/images/search?limit=10", { signal: controller.signal })
+      .get<CatImage[]>("/images/search?limit=1", { signal: controller.signal })
       .then((res) => setCats(res.data))
       .catch((err) => {
         console.error(err);

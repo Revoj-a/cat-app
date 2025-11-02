@@ -1,8 +1,10 @@
 import { Box, Grid } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import CatSlides from "./components/CatSlides";
+import { useState } from "react";
 
 function App() {
+  const [showCats, setShowCats] = useState(false);
   return (
     <Box bg="white" minH="100vh">
       <Grid
@@ -22,7 +24,7 @@ function App() {
           justifyContent="center"
           px={4}
         >
-          <NavBar />
+          <NavBar onVoteClick={() => setShowCats(true)} />
         </Box>
         <Box
           gridArea="content"
@@ -32,7 +34,7 @@ function App() {
           alignItems="center"
           justifyContent="center"
         >
-          <CatSlides></CatSlides>
+          {showCats && <CatSlides />}
         </Box>
         <Box
           gridArea="bottom"

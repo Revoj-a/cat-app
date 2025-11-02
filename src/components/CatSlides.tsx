@@ -14,7 +14,7 @@ const CatSlides = () => {
           <Image
             src={cat.url}
             alt={`Cat ${cat.id}`}
-            boxSize="200px"
+            boxSize="300px"
             objectFit="cover"
             borderRadius="md"
             mb={2}
