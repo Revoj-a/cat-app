@@ -1,4 +1,5 @@
 import { Box, Grid } from "@chakra-ui/react";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
@@ -8,20 +9,19 @@ function App() {
           base: `'nav' 'content' 'bottom'`,
           lg: `'nav' 'content' 'bottom'`,
         }}
-        gridTemplateRows="60px 1fr 60px"
+        gridTemplateRows="90px 1fr 60px"
         height="100vh"
         gap={4}
       >
         <Box
           gridArea="nav"
-          bg="gray"
           color="black"
           display="flex"
           alignItems="center"
           justifyContent="center"
           px={4}
         >
-          Nav
+          <NavBar />
         </Box>
         <Box
           gridArea="content"
