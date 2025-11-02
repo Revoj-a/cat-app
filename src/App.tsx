@@ -1,27 +1,7 @@
-import ListGroup from "./components/ListGroup";
+import { Button } from "@chakra-ui/react";
 
 function App() {
-  const items = [
-    "New York",
-    "Philippines",
-    "South Korea",
-    "Japan",
-    "Singapore",
-  ];
-
-  const handleSelectItem = (item: string) => {
-    console.log(item);
-  };
-
-  return (
-    <div>
-      <ListGroup
-        items={items}
-        heading="Cities"
-        onSelectItem={handleSelectItem}
-      />
-    </div>
-  );
+  return <Button colorPalette="blue">My Button</Button>;
 }
 
 export default App;
