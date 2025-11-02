@@ -1,5 +1,6 @@
 import { Box, Grid } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
+import CatSlides from "./components/CatSlides";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
           alignItems="center"
           justifyContent="center"
         >
-          Content
+          <CatSlides></CatSlides>
         </Box>
         <Box
           gridArea="bottom"
@@ -40,9 +41,7 @@ function App() {
           color="black"
           alignItems="center"
           justifyContent="center"
-        >
-          Bottom
-        </Box>
+        ></Box>
       </Grid>
     </Box>
   );
