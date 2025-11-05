@@ -5,9 +5,10 @@ import heartIcon from "../assets/heart.png";
 
 interface Props {
   onVoteClick: () => void;
+  onFavClick: () => void;
 }
 
-const NavBar = ({ onVoteClick }: Props) => {
+const NavBar = ({ onVoteClick, onFavClick }: Props) => {
   return (
     <HStack justify="center">
       <Box
@@ -58,7 +59,9 @@ const NavBar = ({ onVoteClick }: Props) => {
         alignItems="center"
         bg="transparent"
         border="none"
+        cursor="pointer"
         outline="none"
+        onClick={onFavClick}
         overflow="hidden"
         _hover={{ bg: "transparent", transform: "scale(1.1)" }}
         _active={{ transform: "sacle(0.95)" }}

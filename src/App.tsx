@@ -1,13 +1,25 @@
 import { Box, Grid } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
-import CatSlides from "./components/CatSlides";
+import CatSlides, { type CatImage } from "./components/CatSlides";
 import { useState } from "react";
 import IconBar from "./components/IconBar";
 import useCats from "./hooks/useCats";
+import FavGrid from "./components/FavGrid";
 
 function App() {
-  const [showCats, setShowCats] = useState(false);
+  const [view, setView] = useState<"vote" | "favs">("vote");
+  const [favorites, setFavorites] = useState<CatImage[]>([]);
   const { cats, error, currentIndex, loading, handleNextImage } = useCats();
+
+  const handleHeartClick = () => {
+    const currentCat = cats[currentIndex];
+
+    if (currentCat && !favorites.some((f) => f.id === currentCat.id)) {
+      setFavorites([...favorites, currentCat]);
+    }
+    handleNextImage();
+  };
+
   return (
     <Box bg="white" minH="100vh">
       <Grid
@@ -27,7 +39,10 @@ function App() {
           justifyContent="center"
           px={4}
         >
-          <NavBar onVoteClick={() => setShowCats(true)} />
+          <NavBar
+            onVoteClick={() => setView("vote")}
+            onFavClick={() => setView("favs")}
+          />
         </Box>
         <Box
           gridArea="content"
@@ -37,7 +52,7 @@ function App() {
           alignItems="center"
           justifyContent="center"
         >
-          {showCats && (
+          {view === "vote" && (
             <CatSlides
               cats={cats}
               error={error}
@@ -45,17 +60,20 @@ function App() {
               currentIndex={currentIndex}
             />
           )}
+          {view === "favs" && <FavGrid favorites={favorites}></FavGrid>}
         </Box>
-        <Box
-          gridArea="bottom"
-          bg="white"
-          display="flex"
-          color="black"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <IconBar onHeartClick={handleNextImage} />
-        </Box>
+        {view === "vote" && (
+          <Box
+            gridArea="bottom"
+            bg="white"
+            display="flex"
+            color="black"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <IconBar onHeartClick={handleHeartClick} />
+          </Box>
+        )}
       </Grid>
     </Box>
   );

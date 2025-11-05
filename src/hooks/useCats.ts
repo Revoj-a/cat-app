@@ -24,9 +24,8 @@ const useCats = () => {
         console.error(err);
         setError("Failed to fetch the image");
         setLoading(false);
-
-        return () => controller.abort();
       });
+    return () => controller.abort();
   }, []);
 
   const handleNextImage = () => {
