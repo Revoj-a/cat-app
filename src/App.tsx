@@ -12,8 +12,7 @@ function App() {
   const [view, setView] = useState<"vote" | "breed" | "favs">("vote");
   const [favorites, setFavorites] = useState<CatImage[]>([]);
   const { cats, error, currentIndex, loading, handleNextImage } = useCats();
-  const { breeds, breedsError, currentBreedIndex, breedsLoading } =
-    useBreeds("");
+  const { breeds, breedsError, breedsLoading } = useBreeds("");
 
   const handleHeartClick = () => {
     const currentCat = cats[currentIndex];
@@ -71,7 +70,6 @@ function App() {
               breeds={breeds}
               error={breedsError}
               loading={breedsLoading}
-              currentBreedIndex={currentBreedIndex}
             ></CatBreeds>
           )}
         </Box>
