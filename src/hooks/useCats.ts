@@ -5,10 +5,9 @@ import { useEffect, useState } from "react";
 interface CatImage {
   id: string;
   url: string;
-  breeds?: { name: string; description: string }[];
 }
 
-const useCats = (breedId?: string) => {
+const useCats = () => {
   const [cats, setCats] = useState<CatImage[]>([]);
   const [error, setError] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -19,14 +18,8 @@ const useCats = (breedId?: string) => {
     const controller = new AbortController();
     setLoading(true);
 
-    const endpoint = breedId
-      ? `/images/search?limit=10&breed_ids=${breedId}`
-      : "/images/search?limit=10";
-
-    console.log("🔍 Fetching from:", endpoint);
-
     apiClient
-      .get<CatImage[]>(endpoint, { signal: controller.signal })
+      .get<CatImage[]>("/images/search?limit=10", { signal: controller.signal })
       .then((res) => {
         console.log("API response:", res.data);
         setCats(res.data);
@@ -40,7 +33,7 @@ const useCats = (breedId?: string) => {
       })
       .finally(() => setLoading(false));
     return () => controller.abort();
-  }, []);
+  }, [cats.length]);
 
   const handleNextImage = () => {
     if (cats.length === 0) return;

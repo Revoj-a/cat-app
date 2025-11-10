@@ -3,30 +3,52 @@ import { useEffect, useState } from "react";
 
 interface Breed {
   id: string;
-  url: string;
+  name: string;
   description: string;
+  image?: { url: string };
 }
 
-const useBreeds = () => {
+const useBreeds = (breedName: string) => {
   const [breeds, setBreeds] = useState<Breed[]>([]);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [breedsError, setBreedsError] = useState("");
+  const [currentBreedIndex, setCurrentBreedIndex] = useState(0);
+  const [breedsLoading, setBreedsLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
+    if (breeds.length > 0) return;
+    const controller = new AbortController();
+    setBreedsLoading(true);
+
+    const endpoint = breedName ? `/breeds/${breedName}` : "/breeds";
+
+    console.log("🔍 Fetching breeds from:", endpoint);
+
     apiClient
-      .get<Breed[]>("/breeds")
+      .get<Breed[]>(endpoint, { signal: controller.signal })
       .then((res) => {
+        console.log("Breed API response:", res.data);
         setBreeds(res.data);
-        setLoading(false);
+        setBreedsLoading(false);
       })
       .catch((err) => {
         console.error(err);
-        setError("Failed to fetch breed");
-        setLoading(false);
+        setBreedsError("Failed to fetch breed");
+        setBreedsLoading(false);
       });
-  }, []);
-  return { breeds, error, loading };
+  }, [breedName, breeds.length]);
+
+  const handleBreedsNextImage = () => {
+    if (breeds.length === 0) return;
+
+    setCurrentBreedIndex((prev) => (prev < breeds.length - 1 ? prev + 1 : 0));
+  };
+  return {
+    breeds,
+    breedsError,
+    currentBreedIndex,
+    breedsLoading,
+    handleBreedsNextImage,
+  };
 };
 
 export default useBreeds;

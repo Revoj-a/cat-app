@@ -5,11 +5,15 @@ import { useState } from "react";
 import IconBar from "./components/IconBar";
 import useCats from "./hooks/useCats";
 import FavGrid from "./components/FavGrid";
+import CatBreeds from "./components/CatBreeds";
+import useBreeds from "./hooks/useBreeds";
 
 function App() {
-  const [view, setView] = useState<"vote" | "favs">("vote");
+  const [view, setView] = useState<"vote" | "breed" | "favs">("vote");
   const [favorites, setFavorites] = useState<CatImage[]>([]);
   const { cats, error, currentIndex, loading, handleNextImage } = useCats();
+  const { breeds, breedsError, currentBreedIndex, breedsLoading } =
+    useBreeds("");
 
   const handleHeartClick = () => {
     const currentCat = cats[currentIndex];
@@ -42,6 +46,7 @@ function App() {
           <NavBar
             onVoteClick={() => setView("vote")}
             onFavClick={() => setView("favs")}
+            onBreedClick={() => setView("breed")}
           />
         </Box>
         <Box
@@ -61,6 +66,14 @@ function App() {
             />
           )}
           {view === "favs" && <FavGrid favorites={favorites}></FavGrid>}
+          {view === "breed" && (
+            <CatBreeds
+              breeds={breeds}
+              error={breedsError}
+              loading={breedsLoading}
+              currentBreedIndex={currentBreedIndex}
+            ></CatBreeds>
+          )}
         </Box>
         {view === "vote" && (
           <Box
