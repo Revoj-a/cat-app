@@ -82,7 +82,10 @@ function App() {
             alignItems="center"
             justifyContent="center"
           >
-            <IconBar onHeartClick={handleHeartClick} />
+            <IconBar
+              onHeartClick={handleHeartClick}
+              onThumbsClick={handleNextImage}
+            />
           </Box>
         )}
       </Grid>
