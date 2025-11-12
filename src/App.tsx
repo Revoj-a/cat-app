@@ -85,6 +85,7 @@ function App() {
             <IconBar
               onHeartClick={handleHeartClick}
               onThumbsClick={handleNextImage}
+              onDislikeClick={handleNextImage}
             />
           </Box>
         )}
