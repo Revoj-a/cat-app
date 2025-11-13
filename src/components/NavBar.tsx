@@ -25,7 +25,7 @@ const NavBar = ({ onVoteClick, onFavClick, onBreedClick }: Props) => {
         onClick={onVoteClick}
         overflow="hidden"
         _hover={{ bg: "transparent", transform: "scale(1.1)" }}
-        _active={{ transform: "sacle(0.95)" }}
+        _active={{ transform: "scale(0.95)" }}
         _focus={{ boxShadow: "none" }}
       >
         <Image src={voteIcon} boxSize="35px" objectFit="cover" />
@@ -67,7 +67,7 @@ const NavBar = ({ onVoteClick, onFavClick, onBreedClick }: Props) => {
         onClick={onFavClick}
         overflow="hidden"
         _hover={{ bg: "transparent", transform: "scale(1.1)" }}
-        _active={{ transform: "sacle(0.95)" }}
+        _active={{ transform: "scale(0.95)" }}
         _focus={{ boxShadow: "none" }}
       >
         <Image src={heartIcon} boxSize="35px" objectFit="cover" />

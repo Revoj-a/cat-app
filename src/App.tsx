@@ -64,7 +64,12 @@ function App() {
               currentIndex={currentIndex}
             />
           )}
-          {view === "favs" && <FavGrid favorites={favorites}></FavGrid>}
+          {view === "favs" && (
+            <FavGrid
+              favorites={favorites}
+              onVoteClick={() => setView("vote")}
+            ></FavGrid>
+          )}
           {view === "breed" && (
             <CatBreeds
               breeds={breeds}
