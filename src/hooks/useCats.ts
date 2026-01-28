@@ -19,7 +19,9 @@ const useCats = () => {
     setLoading(true);
 
     apiClient
-      .get<CatImage[]>("/images/search?limit=10", { signal: controller.signal })
+      .get<CatImage[]>("/images/search?limit=20", {
+        signal: controller.signal,
+      })
       .then((res) => {
         console.log("API response:", res.data);
         setCats(res.data);
